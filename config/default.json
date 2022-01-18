@@ -1,4 +1,5 @@
 {
     "serverPort": 5000,
-    "dbUrl": "mongodb+srv://userb:ucYa9niO3pCS6jB1@cluster0.m1y2t.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+    "dbUrl": "mongodb+srv://userb:ucYa9niO3pCS6jB1@cluster0.m1y2t.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+    "secretKey": "namberVan"
 }
