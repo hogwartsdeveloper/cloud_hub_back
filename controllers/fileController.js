@@ -2,7 +2,7 @@ const fileService = require("../services/fileService")
 const File = require("../models/File")
 const User = require("../models/User")
 const fs = require("fs")
-const console = require("console")
+
 
 class FileController {
     async createDir(req, res) {
@@ -65,7 +65,7 @@ class FileController {
             const type = file.name.split('.').pop()
             let filePath = file.name
             if (parent) {
-                filePath = parent.path + '/' + 'file.name'
+                filePath = parent.path + '/' + file.name
             }
 
             const dbFile = new File({
