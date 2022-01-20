@@ -5,6 +5,7 @@ const router = new Router()
 
 router.post('', authMiddleware, fileController.createDir)
 router.post('/upload', authMiddleware, fileController.uploadFile)
+router.get('/download', authMiddleware, fileController.downloadFile)
 router.get('', authMiddleware, fileController.getFiles)
 
 module.exports = router
