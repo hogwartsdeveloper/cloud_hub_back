@@ -2,6 +2,7 @@ const fileService = require("../services/fileService")
 const File = require("../models/File")
 const User = require("../models/User")
 const fs = require("fs")
+const console = require("console")
 
 class FileController {
     async createDir(req, res) {
@@ -98,6 +99,21 @@ class FileController {
         } catch(e) {
             console.log(e)
             return res.status(500).json({message: "Download error"})
+        }
+    }
+
+    async deleteFile(req, res) {
+        try {
+            const file = await File.findOne({_id: req.query.id, user: req.user.id})
+            if (!file) {
+                return res.status(400).json({message: 'file not found'})
+            }
+            fileService.deleteFile(req, file)
+            await file.remove()
+            return res.json({message: 'File was deleted'})
+        } catch(e) {
+            console.log(e)
+            res.status(400).json({message: "Dir is not empty"})
         }
     }
 }
