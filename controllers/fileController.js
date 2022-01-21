@@ -149,6 +149,9 @@ class FileController {
         try {
             const file = req.files.file
             const user = await User.findById(req.user.id)
+            if (user.avatar !== null) {
+                fs.unlinkSync(`${req.staticPath}/${user.avatar}`)
+            }
             const avatarName = Uuid.v4() + '.jpg'
             file.mv(`${req.staticPath}/${avatarName}`)
             user.avatar = avatarName
