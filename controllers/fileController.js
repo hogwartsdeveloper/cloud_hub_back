@@ -3,6 +3,7 @@ const File = require("../models/File")
 const User = require("../models/User")
 const fs = require("fs")
 const Uuid = require('uuid')
+const { uploadFile } = require("../s3")
 
 
 class FileController {
@@ -77,7 +78,6 @@ class FileController {
                 return res.status(400).json({message: 'Файл уже существует'})
             }
             file.mv(path)
-
             const type = file.name.split('.').pop()
             let filePath = file.name
             if (parent) {
