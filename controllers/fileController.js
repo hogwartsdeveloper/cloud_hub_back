@@ -61,7 +61,7 @@ class FileController {
             const user = await User.findOne({_id: req.user.id})
 
             if (user.usedSpace + file.size > user.diskSpace) {
-                return res.status(400).json({message: 'There no space on the disk'})
+                return res.status(400).json({message: 'На диске нет места!'})
             }
 
             user.usedSpace = user.usedSpace + file.size
@@ -74,7 +74,7 @@ class FileController {
             }
 
             if (fs.existsSync(path)) {
-                return res.status(400).json({message: 'File already exist'})
+                return res.status(400).json({message: 'Файл уже существует'})
             }
             file.mv(path)
 
@@ -99,7 +99,7 @@ class FileController {
             res.json(dbFile)
         } catch (e) {
             console.log(e)
-            return res.status(500).json({message: "Upload error"})
+            return res.status(500).json({message: "Ошибка загрузки"})
         }
     }
 
@@ -123,16 +123,16 @@ class FileController {
             const file = await File.findOne({_id: req.query.id, user: req.user.id})
             const user = await User.findById(req.user.id)
             if (!file) {
-                return res.status(400).json({message: 'file not found'})
+                return res.status(400).json({message: 'файл не найден'})
             }
             fileService.deleteFile(req, file)
             user.usedSpace = user.usedSpace - file.size
             await file.remove()
             await user.save()
-            return res.json({message: 'File was deleted'})
+            return res.json({message: 'Файл был удален!'})
         } catch(e) {
             console.log(e)
-            res.status(400).json({message: "Dir is not empty"})
+            res.status(400).json({message: "Каталог не пуст"})
         }
     }
 
